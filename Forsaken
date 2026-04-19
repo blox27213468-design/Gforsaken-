@@ -693,29 +693,30 @@ spawn(function()
 			continue
 		end
 		local targetPos = character.HumanoidRootPart.Position
-		local dist = (coolKidHRP.Position - targetPos).Magnitude
+local dist = (coolKidHRP.Position - targetPos).Magnitude
 
--- 🎵 МУЗЫКА ПО ДИСТАНЦИИ (ВСТАВИЛИ)
-        if dist < 25 then
-	if not chaseSound.IsPlaying then
-		chaseSound:Play()
-	end
+-- 🎵 музыка по дистанции
+if dist < 25 then
 	chaseSound.Volume = math.clamp(1 - (dist / 25), 0, 1)
 else
 	chaseSound.Volume = 0
 end
 
-local shouldUpdateAnim = lastSprintingState ~= killerSprinting or math.abs(lastDistance - dist) > 2 then
-			coolKidHumanoid:MoveTo(targetPos)
-			if killerSprinting and coolKidKF["run"] then
-				coolKidHumanoid.WalkSpeed = coolKidMoveSpeedRun
-				if shouldUpdateAnim and (not coolKidStopper or coolKidStopper.Key ~= "run") then
-					if coolKidStopper and coolKidStopper.Stop then
-						coolKidStopper.Stop()
-						coolKidStopper = nil
-					end
-					coolKidStopper = {Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["run"], 1.5, true), Key = "run", Mode = "Move"}
-				end
+local shouldUpdateAnim = lastSprintingState ~= killerSprinting or math.abs(lastDistance - dist) > 2
+
+if dist > 2 then
+	coolKidHumanoid:MoveTo(targetPos)
+	if killerSprinting and coolKidKF["run"] then
+		coolKidHumanoid.WalkSpeed = coolKidMoveSpeedRun
+		if shouldUpdateAnim and (not coolKidStopper or coolKidStopper.Key ~= "run") then
+			if coolKidStopper and coolKidStopper.Stop then
+				coolKidStopper.Stop()
+				coolKidStopper = nil
+			end
+			coolKidStopper = {Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["run"], 1.5, true), Key = "run", Mode = "Move"}
+		end
+	end
+end
 			elseif coolKidKF["walk"] then
 				coolKidHumanoid.WalkSpeed = coolKidMoveSpeedWalk
 				if shouldUpdateAnim and (not coolKidStopper or coolKidStopper.Key ~= "walk") then
