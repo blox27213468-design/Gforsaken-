@@ -224,24 +224,6 @@ local tDirection = {
 	[Enum.PoseEasingDirection.InOut] = Enum.EasingDirection.InOut,
 }
 
-local head = coolKidModel:FindFirstChild("Head") or coolKidModel:FindFirstChild("HumanoidRootPart")
-
-if head then
-	local iconGui = Instance.new("BillboardGui")
-	iconGui.Name = "CoolKidIcon"
-	iconGui.Adornee = head
-	iconGui.Size = UDim2.new(0, 80, 0, 80)
-	iconGui.StudsOffset = Vector3.new(0, 4, 0)
-	iconGui.AlwaysOnTop = true
-	iconGui.Parent = coolKidModel
-
-	local image = Instance.new("ImageLabel")
-	image.Size = UDim2.new(1, 0, 1, 0)
-	image.BackgroundTransparency = 1
-	image.Image = "rbxassetid://133073003699508"
-	image.Parent = iconGui
-end
-
 -- Optimized PlayKeyframeSequence
 local function PlayKeyframeSequence(Model, KeyFrameSequence, Speed, Loop)
 	Speed = Speed or 1
