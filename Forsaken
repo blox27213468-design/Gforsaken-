@@ -694,8 +694,18 @@ spawn(function()
 		end
 		local targetPos = character.HumanoidRootPart.Position
 		local dist = (coolKidHRP.Position - targetPos).Magnitude
-		local shouldUpdateAnim = lastSprintingState ~= killerSprinting or math.abs(lastDistance - dist) > 2
-		if dist > 2 then
+
+-- 🎵 МУЗЫКА ПО ДИСТАНЦИИ (ВСТАВИЛИ)
+        if dist < 25 then
+	if not chaseSound.IsPlaying then
+		chaseSound:Play()
+	end
+	chaseSound.Volume = math.clamp(1 - (dist / 25), 0, 1)
+else
+	chaseSound.Volume = 0
+end
+
+local shouldUpdateAnim = lastSprintingState ~= killerSprinting or math.abs(lastDistance - dist) > 2 then
 			coolKidHumanoid:MoveTo(targetPos)
 			if killerSprinting and coolKidKF["run"] then
 				coolKidHumanoid.WalkSpeed = coolKidMoveSpeedRun
