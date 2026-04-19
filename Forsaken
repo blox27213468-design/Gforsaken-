@@ -164,7 +164,7 @@ deathSound.Looped = false
 local chaseSound = Instance.new("Sound")
 chaseSound.SoundId = getcustomasset("chase.mp3")
 chaseSound.Volume = 1
-chaseSound.Looped = true
+chaseSound.Looped = false
 chaseSound.Parent = workspace
 
 -- Remove default Animator
