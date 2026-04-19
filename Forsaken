@@ -464,7 +464,7 @@ billboard.Adornee = coolKidModel:FindFirstChild("Head") or coolKidHRP
 billboard.Size = UDim2.new(0, 100, 0, 10)
 billboard.StudsOffset = Vector3.new(0, 3, 0)
 billboard.AlwaysOnTop = true
-billboard.Enabled = true
+billboard.Enabled = false
 
 local killerBg = Instance.new("Frame", billboard)
 killerBg.Size = UDim2.new(1, 0, 1, 0)
