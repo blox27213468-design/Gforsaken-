@@ -706,40 +706,56 @@ local shouldUpdateAnim = lastSprintingState ~= killerSprinting or math.abs(lastD
 
 if dist > 2 then
 	coolKidHumanoid:MoveTo(targetPos)
+
 	if killerSprinting and coolKidKF["run"] then
 		coolKidHumanoid.WalkSpeed = coolKidMoveSpeedRun
+
 		if shouldUpdateAnim and (not coolKidStopper or coolKidStopper.Key ~= "run") then
 			if coolKidStopper and coolKidStopper.Stop then
 				coolKidStopper.Stop()
 				coolKidStopper = nil
 			end
-			coolKidStopper = {Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["run"], 1.5, true), Key = "run", Mode = "Move"}
+
+			coolKidStopper = {
+				Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["run"], 1.5, true),
+				Key = "run",
+				Mode = "Move"
+			}
 		end
-	end
-end
-			elseif coolKidKF["walk"] then
-				coolKidHumanoid.WalkSpeed = coolKidMoveSpeedWalk
-				if shouldUpdateAnim and (not coolKidStopper or coolKidStopper.Key ~= "walk") then
-					if coolKidStopper and coolKidStopper.Stop then
-						coolKidStopper.Stop()
-						coolKidStopper = nil
-					end
-					coolKidStopper = {Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["walk"], 1, true), Key = "walk", Mode = "Move"}
-				end
-			else
-				warn("No valid walk or run animation for CoolKid")
-			end
-		else
-			coolKidHumanoid.WalkSpeed = 0
-			if coolKidStopper and coolKidStopper.Stop and coolKidStopper.Mode == "Move" then
+
+	elseif coolKidKF["walk"] then
+		coolKidHumanoid.WalkSpeed = coolKidMoveSpeedWalk
+
+		if shouldUpdateAnim and (not coolKidStopper or coolKidStopper.Key ~= "walk") then
+			if coolKidStopper and coolKidStopper.Stop then
 				coolKidStopper.Stop()
 				coolKidStopper = nil
 			end
+
+			coolKidStopper = {
+				Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["walk"], 1, true),
+				Key = "walk",
+				Mode = "Move"
+			}
 		end
-		lastSprintingState = killerSprinting
-		lastDistance = dist
-		task.wait(0.1)
+
+	else
+		warn("No valid walk or run animation for CoolKid")
 	end
+
+else
+	coolKidHumanoid.WalkSpeed = 0
+
+	if coolKidStopper and coolKidStopper.Stop and coolKidStopper.Mode == "Move" then
+		coolKidStopper.Stop()
+		coolKidStopper = nil
+	end
+end
+
+lastSprintingState = killerSprinting
+lastDistance = dist
+task.wait(0.1)
+end
 end)
 
 humanoid.Died:Connect(function()
