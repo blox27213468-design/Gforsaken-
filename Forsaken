@@ -565,7 +565,11 @@ hitbox.Touched:Connect(function(part)
 						coolKidStopper = nil
 					end
 					coolKidStopper = {Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["kill007"], 1, false), Key = "kill007", Mode = "Attack"}
-					local playerStopper = PlayKeyframeSequence(character, coolKidKF["kill007victim"], 1, false)
+
+                    deathSound.TimePosition = 0
+                    deathSound:Play()
+
+                    local playerStopper = PlayKeyframeSequence(character, coolKidKF["kill007victim"], 1, false)
 					local executionDuration = math.max(
 						coolKidKF["kill007"]:GetKeyframes()[#coolKidKF["kill007"]:GetKeyframes()].Time,
 						coolKidKF["kill007victim"]:GetKeyframes()[#coolKidKF["kill007victim"]:GetKeyframes()].Time
