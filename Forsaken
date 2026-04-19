@@ -553,20 +553,17 @@ hitbox.Touched:Connect(function(part)
 	humanoid.Health = 1
 	faceDecal.Texture = faceStates.Dead
 
-	-- 🔒 БЛОКИРУЕМ ДВИЖЕНИЕ
+	-- 🔒 ПОЛНАЯ БЛОКИРОВКА
 	humanoid.WalkSpeed = 0
 	humanoid.JumpPower = 0
 	humanoid.AutoRotate = false
+	humanoid:ChangeState(Enum.HumanoidStateType.Physics)
 
 	local playerHRP = character:FindFirstChild("HumanoidRootPart")
 	if playerHRP and coolKidHRP then
 		coolKidHumanoid.WalkSpeed = 0
-		
-		-- ❗ НЕ ЯКОРИМ, иначе Weld может вести себя криво
-		-- playerHRP.Anchored = true  ← УБЕРИ ЭТО
-
 		playerHRP.CFrame = coolKidHRP.CFrame
-		
+
 		local weld = Instance.new("WeldConstraint")
 		weld.Part0 = coolKidHRP
 		weld.Part1 = playerHRP
