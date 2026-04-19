@@ -10,17 +10,6 @@ local Lighting = game:GetService("Lighting")
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
-
--- ВСТАВЛЯЕШЬ СЮДА
-local playedDeathSound = false
-
-humanoid.HealthChanged:Connect(function(hp)
-	if hp <= 0 and not playedDeathSound then
-		playedDeathSound = true
-		deathSound.TimePosition = 0
-		deathSound:Play()
-	end
-end)
 local head = character:WaitForChild("Head")
 
 -- Record original position
