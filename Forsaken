@@ -209,6 +209,7 @@ for _, name in pairs({"walk", "run", "attack", "kill007", "kill007victim"}) do
 end
 coolKidModel:Destroy()
 
+-- 🔽 ВОТ СЮДА ВСТАВЛЯЕШЬ
 local head = coolKidModel:FindFirstChild("Head") or coolKidModel:FindFirstChild("HumanoidRootPart")
 
 if head then
