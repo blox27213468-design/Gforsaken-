@@ -722,28 +722,6 @@ local hbConn = RS.Heartbeat:Connect(function(dt)
 	end
 end)
 
-task.wait(1) -- даём модели загрузиться
-
-local part = coolKidModel:FindFirstChild("HumanoidRootPart") 
-    or coolKidModel:FindFirstChildWhichIsA("BasePart")
-
-if part then
-	local billboard = Instance.new("BillboardGui")
-	billboard.Name = "CoolKidIcon"
-	billboard.Size = UDim2.new(0, 120, 0, 120)
-	billboard.StudsOffset = Vector3.new(0, 6, 0)
-	billboard.AlwaysOnTop = true
-	billboard.Parent = part
-
-	local image = Instance.new("ImageLabel")
-	image.Size = UDim2.new(1, 0, 1, 0)
-	image.BackgroundTransparency = 1
-	image.Image = "rbxassetid://7072718362" -- ✅ точно рабочая картинка
-	image.Parent = billboard
-else
-	warn("Не найдена часть для иконки")
-end
-
 spawn(function()
 	while coolKidHumanoid.Health > 0 and gameActive do
 		hitbox.CFrame = coolKidHRP.CFrame
