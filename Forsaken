@@ -209,7 +209,21 @@ for _, name in pairs({"walk", "run", "attack", "kill007", "kill007victim"}) do
 end
 coolKidModel:Destroy()
 
--- 🔽 ВОТ СЮДА ВСТАВЛЯЕШЬ
+-- Animation cache and style mappings
+local animationCache = {}
+local tStyle = {
+	[Enum.PoseEasingStyle.Linear] = Enum.EasingStyle.Linear,
+	[Enum.PoseEasingStyle.Bounce] = Enum.EasingStyle.Bounce,
+	[Enum.PoseEasingStyle.Cubic] = Enum.EasingStyle.Cubic,
+	[Enum.PoseEasingStyle.Elastic] = Enum.EasingStyle.Elastic,
+	[Enum.PoseEasingStyle.Constant] = Enum.EasingStyle.Linear,
+}
+local tDirection = {
+	[Enum.PoseEasingDirection.In] = Enum.EasingDirection.In,
+	[Enum.PoseEasingDirection.Out] = Enum.EasingDirection.Out,
+	[Enum.PoseEasingDirection.InOut] = Enum.EasingDirection.InOut,
+}
+
 local head = coolKidModel:FindFirstChild("Head") or coolKidModel:FindFirstChild("HumanoidRootPart")
 
 if head then
@@ -227,21 +241,6 @@ if head then
 	image.Image = "rbxassetid://133073003699508"
 	image.Parent = iconGui
 end
-
--- Animation cache and style mappings
-local animationCache = {}
-local tStyle = {
-	[Enum.PoseEasingStyle.Linear] = Enum.EasingStyle.Linear,
-	[Enum.PoseEasingStyle.Bounce] = Enum.EasingStyle.Bounce,
-	[Enum.PoseEasingStyle.Cubic] = Enum.EasingStyle.Cubic,
-	[Enum.PoseEasingStyle.Elastic] = Enum.EasingStyle.Elastic,
-	[Enum.PoseEasingStyle.Constant] = Enum.EasingStyle.Linear,
-}
-local tDirection = {
-	[Enum.PoseEasingDirection.In] = Enum.EasingDirection.In,
-	[Enum.PoseEasingDirection.Out] = Enum.EasingDirection.Out,
-	[Enum.PoseEasingDirection.InOut] = Enum.EasingDirection.InOut,
-}
 
 -- Optimized PlayKeyframeSequence
 local function PlayKeyframeSequence(Model, KeyFrameSequence, Speed, Loop)
