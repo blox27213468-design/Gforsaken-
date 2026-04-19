@@ -639,6 +639,22 @@ local hbConn = RS.Heartbeat:Connect(function(dt)
 			sprinting = false
 			sprintBtn.Text = "Sprint"
 			humanoid.WalkSpeed = defaultSpeed
+
+-- 🔊 Проверка дистанции до убийцы
+local playerHRP = character:FindFirstChild("HumanoidRootPart")
+if playerHRP and coolKidHRP then
+	local distance = (playerHRP.Position - coolKidHRP.Position).Magnitude
+	
+	if distance <= 40 then
+		if not dangerSound.IsPlaying then
+			dangerSound:Play()
+		end
+	else
+		if dangerSound.IsPlaying then
+			dangerSound:Stop()
+		end
+	end
+end
 		end
 	else
 		humanoid.WalkSpeed = defaultSpeed
