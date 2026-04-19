@@ -720,9 +720,5 @@ spawn(function()
 end)
 
 humanoid.Died:Connect(function()
-	if deathSound then
-		deathSound.TimePosition = 0
-		deathSound:Play()
-	end
 	endGame()
 end)
