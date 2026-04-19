@@ -226,7 +226,7 @@ if adorneePart then
 	local image = Instance.new("ImageLabel")
 	image.Size = UDim2.new(1, 0, 1, 0)
 	image.BackgroundTransparency = 1
-	image.Image = "rbxassetid://133073003699508"
+	image.Image = "rbxassetid://7072718362"
 	image.Parent = iconGui
 else
 	warn("НЕ НАЙДЕН Head или HRP у CoolKid")
