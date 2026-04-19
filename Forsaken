@@ -548,22 +548,34 @@ hitbox.Touched:Connect(function(part)
 				end
 			end)
 			if humanoid.Health <= 0 then
-				isExecuting = true
-				isAttacking = false
-				humanoid.Health = 1
-				faceDecal.Texture = faceStates.Dead
-				local playerHRP = character:FindFirstChild("HumanoidRootPart")
-				if playerHRP and coolKidHRP then
-					coolKidHumanoid.WalkSpeed = 0
-					playerHRP.CFrame = coolKidHRP.CFrame * CFrame.new(0, 0, 0)
-					local weld = Instance.new("WeldConstraint")
-					weld.Part0 = coolKidHRP
-					weld.Part1 = playerHRP
-					weld.Parent = coolKidHRP
-					if coolKidStopper and coolKidStopper.Stop then
-						coolKidStopper.Stop()
-						coolKidStopper = nil
-					end
+	isExecuting = true
+	isAttacking = false
+	humanoid.Health = 1
+	faceDecal.Texture = faceStates.Dead
+
+	-- 🔒 БЛОКИРУЕМ ДВИЖЕНИЕ
+	humanoid.WalkSpeed = 0
+	humanoid.JumpPower = 0
+	humanoid.AutoRotate = false
+
+	local playerHRP = character:FindFirstChild("HumanoidRootPart")
+	if playerHRP and coolKidHRP then
+		coolKidHumanoid.WalkSpeed = 0
+		
+		-- ❗ НЕ ЯКОРИМ, иначе Weld может вести себя криво
+		-- playerHRP.Anchored = true  ← УБЕРИ ЭТО
+
+		playerHRP.CFrame = coolKidHRP.CFrame
+		
+		local weld = Instance.new("WeldConstraint")
+		weld.Part0 = coolKidHRP
+		weld.Part1 = playerHRP
+		weld.Parent = coolKidHRP
+
+		if coolKidStopper and coolKidStopper.Stop then
+			coolKidStopper.Stop()
+			coolKidStopper = nil
+		end
 					coolKidStopper = {Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["kill007"], 1, false), Key = "kill007", Mode = "Attack"}
 
                     deathSound.TimePosition = 0
