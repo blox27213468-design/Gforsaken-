@@ -2,8 +2,6 @@ writefile("PLEAD.mp3", game:HttpGet("https://github.com/blox27213468-design/Musi
 
 writefile("death.mp3", game:HttpGet("https://github.com/blox27213468-design/Music/raw/refs/heads/main/Voicy_c00lkidd%20Kill%20Sound.mp3"))
 
-writefile("chase.mp3", game:HttpGet("https://github.com/blox27213468-design/Music/raw/refs/heads/main/forsakeb.mp3"))
-
 local Players = game:GetService("Players")
 local RS = game:GetService("RunService")
 local TS = game:GetService("TweenService")
@@ -160,12 +158,6 @@ deathSound.SoundId = getcustomasset("death.mp3")
 deathSound.Volume = 1
 deathSound.Parent = workspace
 deathSound.Looped = false
-
-local chaseSound = Instance.new("Sound")
-chaseSound.SoundId = getcustomasset("chase.mp3")
-chaseSound.Volume = 1
-chaseSound.Looped = false
-chaseSound.Parent = workspace
 
 -- Remove default Animator
 local animator = humanoid:FindFirstChildOfClass("Animator")
@@ -693,69 +685,42 @@ spawn(function()
 			continue
 		end
 		local targetPos = character.HumanoidRootPart.Position
-local dist = (coolKidHRP.Position - targetPos).Magnitude
-
--- 🎵 музыка по дистанции
-if dist < 25 then
-	chaseSound.Volume = math.clamp(1 - (dist / 25), 0, 1)
-else
-	chaseSound.Volume = 0
-end
-
-local shouldUpdateAnim = lastSprintingState ~= killerSprinting or math.abs(lastDistance - dist) > 2
-
-if dist > 2 then
-	coolKidHumanoid:MoveTo(targetPos)
-
-	if killerSprinting and coolKidKF["run"] then
-		coolKidHumanoid.WalkSpeed = coolKidMoveSpeedRun
-
-		if shouldUpdateAnim and (not coolKidStopper or coolKidStopper.Key ~= "run") then
-			if coolKidStopper and coolKidStopper.Stop then
+		local dist = (coolKidHRP.Position - targetPos).Magnitude
+		local shouldUpdateAnim = lastSprintingState ~= killerSprinting or math.abs(lastDistance - dist) > 2
+		if dist > 2 then
+			coolKidHumanoid:MoveTo(targetPos)
+			if killerSprinting and coolKidKF["run"] then
+				coolKidHumanoid.WalkSpeed = coolKidMoveSpeedRun
+				if shouldUpdateAnim and (not coolKidStopper or coolKidStopper.Key ~= "run") then
+					if coolKidStopper and coolKidStopper.Stop then
+						coolKidStopper.Stop()
+						coolKidStopper = nil
+					end
+					coolKidStopper = {Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["run"], 1.5, true), Key = "run", Mode = "Move"}
+				end
+			elseif coolKidKF["walk"] then
+				coolKidHumanoid.WalkSpeed = coolKidMoveSpeedWalk
+				if shouldUpdateAnim and (not coolKidStopper or coolKidStopper.Key ~= "walk") then
+					if coolKidStopper and coolKidStopper.Stop then
+						coolKidStopper.Stop()
+						coolKidStopper = nil
+					end
+					coolKidStopper = {Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["walk"], 1, true), Key = "walk", Mode = "Move"}
+				end
+			else
+				warn("No valid walk or run animation for CoolKid")
+			end
+		else
+			coolKidHumanoid.WalkSpeed = 0
+			if coolKidStopper and coolKidStopper.Stop and coolKidStopper.Mode == "Move" then
 				coolKidStopper.Stop()
 				coolKidStopper = nil
 			end
-
-			coolKidStopper = {
-				Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["run"], 1.5, true),
-				Key = "run",
-				Mode = "Move"
-			}
 		end
-
-	elseif coolKidKF["walk"] then
-		coolKidHumanoid.WalkSpeed = coolKidMoveSpeedWalk
-
-		if shouldUpdateAnim and (not coolKidStopper or coolKidStopper.Key ~= "walk") then
-			if coolKidStopper and coolKidStopper.Stop then
-				coolKidStopper.Stop()
-				coolKidStopper = nil
-			end
-
-			coolKidStopper = {
-				Stop = PlayKeyframeSequence(coolKidModel, coolKidKF["walk"], 1, true),
-				Key = "walk",
-				Mode = "Move"
-			}
-		end
-
-	else
-		warn("No valid walk or run animation for CoolKid")
+		lastSprintingState = killerSprinting
+		lastDistance = dist
+		task.wait(0.1)
 	end
-
-else
-	coolKidHumanoid.WalkSpeed = 0
-
-	if coolKidStopper and coolKidStopper.Stop and coolKidStopper.Mode == "Move" then
-		coolKidStopper.Stop()
-		coolKidStopper = nil
-	end
-end
-
-lastSprintingState = killerSprinting
-lastDistance = dist
-task.wait(0.1)
-end
 end)
 
 humanoid.Died:Connect(function()
