@@ -2,6 +2,8 @@ writefile("PLEAD.mp3", game:HttpGet("https://github.com/blox27213468-design/Musi
 
 writefile("death.mp3", game:HttpGet("https://github.com/blox27213468-design/Music/raw/refs/heads/main/Voicy_c00lkidd%20Kill%20Sound.mp3"))
 
+writefile("chase.mp3", game:HttpGet("https://github.com/blox27213468-design/Music/raw/refs/heads/main/forsakeb.mp3"))
+
 local Players = game:GetService("Players")
 local RS = game:GetService("RunService")
 local TS = game:GetService("TweenService")
@@ -158,6 +160,12 @@ deathSound.SoundId = getcustomasset("death.mp3")
 deathSound.Volume = 1
 deathSound.Parent = workspace
 deathSound.Looped = false
+
+local chaseSound = Instance.new("Sound")
+chaseSound.SoundId = getcustomasset("chase.mp3")
+chaseSound.Volume = 1
+chaseSound.Looped = true
+chaseSound.Parent = workspace
 
 -- Remove default Animator
 local animator = humanoid:FindFirstChildOfClass("Animator")
