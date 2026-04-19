@@ -557,7 +557,7 @@ hitbox.Touched:Connect(function(part)
 	humanoid.WalkSpeed = 0
 	humanoid.JumpPower = 0
 	humanoid.AutoRotate = false
-	humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+	humanoid.PlatformStand = true
 
 	local playerHRP = character:FindFirstChild("HumanoidRootPart")
 	if playerHRP and coolKidHRP then
@@ -584,13 +584,26 @@ hitbox.Touched:Connect(function(part)
 						coolKidKF["kill007victim"]:GetKeyframes()[#coolKidKF["kill007victim"]:GetKeyframes()].Time
 					)
 					task.delay(executionDuration, function()
-						weld:Destroy()
-						if playerStopper then playerStopper() end
-						if coolKidStopper and coolKidStopper.Key == "kill007" then
-							coolKidStopper.Stop()
-							coolKidStopper = nil
-						end
-						humanoid.Health = 0
+	weld:Destroy()
+
+	if playerStopper then
+		playerStopper()
+	end
+
+	-- 🔓 ВОЗВРАЩАЕМ КОНТРОЛЬ (на всякий случай)
+	humanoid.PlatformStand = false
+	humanoid.AutoRotate = true
+
+	isExecuting = false
+
+	-- Останавливаем анимацию убийцы
+	if coolKidStopper and coolKidStopper.Key == "kill007" then
+		coolKidStopper.Stop()
+		coolKidStopper = nil
+	end
+
+	-- Финальная смерть
+	                    humanoid.Health = 0
 						isExecuting = false
 					end)
 				else
