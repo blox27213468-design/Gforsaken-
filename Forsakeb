@@ -1,5 +1,8 @@
 writefile("PLEAD.mp3", game:HttpGet("https://github.com/blox27213468-design/Music/raw/refs/heads/main/forsaken%20pirate%20bay.mp3"))
 
+writefile("DANGER.mp3", game:HttpGet("https://github.com/blox27213468-design/Music/raw/refs/heads/main/forsaken%20pirate%20bay.mp3"))
+
+
 local Players = game:GetService("Players")
 local RS = game:GetService("RunService")
 local TS = game:GetService("TweenService")
@@ -150,6 +153,12 @@ sound.Volume = 1
 sound.Parent = workspace
 sound.Looped = false
 sound:Play()
+
+local dangerSound = Instance.new("Sound")
+dangerSound.SoundId = getcustomasset("DANGER.mp3") -- свой звук
+dangerSound.Volume = 1
+dangerSound.Looped = true
+dangerSound.Parent = game.SoundService
 
 -- Remove default Animator
 local animator = humanoid:FindFirstChildOfClass("Animator")
