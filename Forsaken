@@ -391,7 +391,7 @@ local killerRegenRate = 21
 local killerSprinting = false
 
 -- Timer
-local timeLeft = 93
+local timeLeft = 115
 local gameActive = true
 
 -- Screen GUI for player
