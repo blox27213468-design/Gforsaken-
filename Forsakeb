@@ -1,11 +1,5 @@
 writefile("PLEAD.mp3", game:HttpGet("https://github.com/blox27213468-design/Music/raw/refs/heads/main/forsaken%20pirate%20bay.mp3"))
 
-local deathSound = Instance.new("Sound")
-deathSound.SoundId = getcustomasset("https://github.com/blox27213468-design/Music/raw/refs/heads/main/Voicy_c00lkidd%20Kill%20Sound.mp3")
-deathSound.Volume = 1
-deathSound.Looped = false
-deathSound.Parent = workspace -- или SoundService
-
 local Players = game:GetService("Players")
 local RS = game:GetService("RunService")
 local TS = game:GetService("TweenService")
