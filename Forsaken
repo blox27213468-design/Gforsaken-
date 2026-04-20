@@ -17,8 +17,8 @@ local originalPivot = character:GetPivot()
 
 -- Set to night time
 Lighting.TimeOfDay = "20:12:00"
-Atmosphere.Density = "0.64"
-Atmosphere.Offset = "0"
+Lighting.Atmosphere.Density = "0.64"
+Lighting.Atmosphere.Offset = "0"
 
 -- Face system setup
 local faceDecal = head:FindFirstChildOfClass("Decal") or Instance.new("Decal", head)
