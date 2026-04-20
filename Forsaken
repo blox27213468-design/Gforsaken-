@@ -209,29 +209,6 @@ for _, name in pairs({"walk", "run", "attack", "kill007", "kill007victim"}) do
 end
 coolKidModel:Destroy()
 
-local head = coolKidModel:FindFirstChild("Head")
-local hrp = coolKidModel:FindFirstChild("HumanoidRootPart")
-
-local adorneePart = head or hrp
-
-if adorneePart then
-	local iconGui = Instance.new("BillboardGui")
-	iconGui.Name = "CoolKidIcon"
-	iconGui.Adornee = adorneePart
-	iconGui.Size = UDim2.new(0, 100, 0, 100)
-	iconGui.StudsOffset = Vector3.new(0, 5, 0)
-	iconGui.AlwaysOnTop = true
-	iconGui.Parent = adorneePart -- ❗ ВАЖНО: теперь родитель = часть
-
-	local image = Instance.new("ImageLabel")
-	image.Size = UDim2.new(1, 0, 1, 0)
-	image.BackgroundTransparency = 1
-	image.Image = "rbxassetid://7072718362"
-	image.Parent = iconGui
-else
-	warn("НЕ НАЙДЕН Head или HRP у CoolKid")
-end
-
 -- Animation cache and style mappings
 local animationCache = {}
 local tStyle = {
@@ -487,7 +464,7 @@ billboard.Adornee = coolKidModel:FindFirstChild("Head") or coolKidHRP
 billboard.Size = UDim2.new(0, 100, 0, 10)
 billboard.StudsOffset = Vector3.new(0, 3, 0)
 billboard.AlwaysOnTop = true
-billboard.Enabled = false
+billboard.Enabled = true
 
 local killerBg = Instance.new("Frame", billboard)
 killerBg.Size = UDim2.new(1, 0, 1, 0)
@@ -576,7 +553,7 @@ hitbox.Touched:Connect(function(part)
 	humanoid.Health = 1
 	faceDecal.Texture = faceStates.Dead
 
-	-- 🔒 ПОЛНАЯ БЛОКИРОВКА
+	-- рџ”’ РџРћР›РќРђРЇ Р‘Р›РћРљРР РћР’РљРђ
 	humanoid.WalkSpeed = 0
 	humanoid.JumpPower = 0
 	humanoid.AutoRotate = false
@@ -613,19 +590,19 @@ hitbox.Touched:Connect(function(part)
 		playerStopper()
 	end
 
-	-- 🔓 ВОЗВРАЩАЕМ КОНТРОЛЬ (на всякий случай)
+	-- рџ”“ Р’РћР—Р’Р РђР©РђР•Рњ РљРћРќРўР РћР›Р¬ (РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№)
 	humanoid.PlatformStand = false
 	humanoid.AutoRotate = true
 
 	isExecuting = false
 
-	-- Останавливаем анимацию убийцы
+	-- РћСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р°РЅРёРјР°С†РёСЋ СѓР±РёР№С†С‹
 	if coolKidStopper and coolKidStopper.Key == "kill007" then
 		coolKidStopper.Stop()
 		coolKidStopper = nil
 	end
 
-	-- Финальная смерть
+	-- Р¤РёРЅР°Р»СЊРЅР°СЏ СЃРјРµСЂС‚СЊ
 	                    humanoid.Health = 0
 						isExecuting = false
 					end)
